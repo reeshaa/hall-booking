@@ -1,4 +1,4 @@
-import { Box, Text, HStack, Button, Link } from "@chakra-ui/react";
+import { Box, Text, HStack, Button, Link, FormControl } from "@chakra-ui/react";
 import React, { useState } from "react";
 import DatePicker from "react-date-picker";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
@@ -46,15 +46,25 @@ export default function BookingBody() {
           Booking details
         </Text>
         <HStack pt="10" spacing={20}>
-          <HStack>
-            <DatePicker onChange={onDateChange} value={datevalue} />
-            <TimeRangePicker onChange={onTimeChange} value={timevalue} />
-          </HStack>
-          <Link style={{ textDecoration: "none" }}>
-            <Button colorScheme="linkedin" onClick={checkAvail}>
-              Check Availability
-            </Button>
-          </Link>
+          <form action="post" method="/sendData">
+            <HStack>
+              <DatePicker
+                name="date"
+                onChange={onDateChange}
+                value={datevalue}
+              />
+              <TimeRangePicker
+                name="time"
+                onChange={onTimeChange}
+                value={timevalue}
+              />
+            </HStack>
+            <Link style={{ textDecoration: "none" }}>
+              <Button colorScheme="linkedin" onClick={checkAvail}>
+                Check Availability
+              </Button>
+            </Link>
+          </form>
           {/* <Text>Available</Text>
           else<Text>Not Available</Text> */}
         </HStack>
