@@ -1,8 +1,9 @@
-import { Box, Text, HStack, Button, Link, Show } from "@chakra-ui/react";
-import React, { useState } from "react";
-import DatePicker from "react-date-picker";
+import { Box, Button, HStack, Link, Text } from "@chakra-ui/react";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
-import { data } from "../dummydates";
+import axios from "axios";
+import React, { useState } from "react";
+import { useEffect } from "react";
+import DatePicker from "react-date-picker";
 import { useLocation } from "react-router-dom";
 
 export default function BookingBody(props) {
@@ -10,10 +11,41 @@ export default function BookingBody(props) {
   const [timevalue, onTimeChange] = useState(["10:00", "11:00"]);
   const [avail, onAvail] = useState(true);
   const [first, setFirst] = useState(false);
+  var data;
 
   const location = useLocation();
   const hallname = location.state;
   console.log(hallname);
+
+  useEffect(() => {
+    data = axios
+      .get("/hallbooking", {
+        params: {
+          hall: hallname,
+        },
+      })
+      .then(function (response) {
+        console.log(response);
+        console.log("getting data for a hall");
+      });
+  });
+
+  function sendNewBooking() {
+    datevalue.setHours(0, 0, 0, 0);
+    axios
+      .post("/hallbooking", {
+        hall: hallname,
+        date: datevalue,
+        startTime: timevalue[0],
+        endTime: timevalue[1],
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   function checkAvail() {
     onAvail(true);
@@ -23,16 +55,11 @@ export default function BookingBody(props) {
       if (i.date.getTime() === datevalue.getTime()) {
         // todo : timelogic
 
-        console.log(i.startTime + " istart");
-        console.log(i.endTime + " iend");
-
         if (
           (timevalue[0] < i.startTime && timevalue[1] <= i.startTime) ||
           (timevalue[0] >= i.endTime && timevalue[1] > i.endTime)
         ) {
-          console.log("avail");
         } else {
-          console.log("not avail");
           onAvail(false);
         }
       }
@@ -69,7 +96,7 @@ export default function BookingBody(props) {
         {avail && first && <Text>It is available</Text>}
         {!avail && <Text>It is not available</Text>}
         {avail && first && (
-          <Button colorScheme="linkedin" mt="20">
+          <Button onClick={sendNewBooking} colorScheme="linkedin" mt="20">
             Book Hall{" "}
           </Button>
         )}

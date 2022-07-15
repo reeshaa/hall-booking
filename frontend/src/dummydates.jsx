@@ -17,6 +17,6 @@ export const data = [
   {
     date: new Date(2022, 6, 15),
     startTime: "08:30",
-    endTime: "14:30",
+    endTime: "09:30",
   },
 ];

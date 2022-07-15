@@ -1,15 +1,32 @@
 const express = require("express");
 const app = express();
 var cors = require("cors");
-// var bodyParser = require("body-parser");
-const PORT = process.env.PORT || 5000;
-var json = require("json");
+var bodyParser = require("body-parser");
 
-module.exports = function (db) {
-  //   app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(express.json());
-  app.post("/sendNewBooking", (req, res) => {
-    console.log(req.body);
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: "false" }));
+
+module.exports = function (collection) {
+  app.get("/", (req, res) => {
+    console.log("hello /link");
+  });
+  app.get("/hallbooking", (req, res) => {
+    console.log("im in get");
+
+    collection.find({ hall: req.query.hall }).toArray((err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(res);
+        return res;
+      }
+    });
+  });
+  app.post("/hallbooking", (req, res) => {
+    collection.insert(req.body);
+    console.log("real data inserted");
   });
 
   app.listen(PORT, () => {
