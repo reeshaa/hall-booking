@@ -37,7 +37,7 @@ export default function Home() {
         placement="left"
         onClose={onClose}
         returnFocusOnClose={false}
-        onOverlayClick={onClose}
+        // onOverlayClick={onClose}
         size="full"
       >
         <DrawerContent>
@@ -161,7 +161,7 @@ function MobileNav(props) {
               </HStack>
             </MenuButton>
             <MenuList
-              onOverlayClick
+              // onOverlayClick
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
