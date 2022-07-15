@@ -1,6 +1,13 @@
-var express = require("express");
 var mongo = require("mongodb").MongoClient;
 
-var app = express();
-
-mongo.connect("mongodb://localhost:27017");
+mongo.connect(
+  "mongodb+srv://reesha1234:reesha1234@cluster0.tcjqumw.mongodb.net/?retryWrites=true&w=majority",
+  (err, db) => {
+    if (err) {
+      console.log(err);
+      return;
+    }
+    console.log("Connected to DB");
+    require("./server.js")(db);
+  }
+);
