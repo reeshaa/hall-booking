@@ -14,3 +14,4 @@ mongo.connect(
     require("./server.js")(collection);
   }
 );
+ 

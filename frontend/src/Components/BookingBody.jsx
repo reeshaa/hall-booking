@@ -11,36 +11,39 @@ export default function BookingBody(props) {
   const [timevalue, onTimeChange] = useState(["10:00", "11:00"]);
   const [avail, onAvail] = useState(true);
   const [first, setFirst] = useState(false);
-  var data;
+  const [booked, setBooked] = useState(false);
+  const [data, setData] = useState([]);
 
   const location = useLocation();
   const hallname = location.state;
-  console.log(hallname);
+  // console.log(hallname);
 
   useEffect(() => {
-    data = axios
+    axios
       .get("/hallbooking", {
         params: {
           hall: hallname,
         },
       })
-      .then(function (response) {
-        console.log(response);
-        console.log("getting data for a hall");
+      .then(function (res) {
+        setData(res.data);
+        // console.log("data : "+res.data);
       });
-  });
+  }, [booked]);
 
   function sendNewBooking() {
     datevalue.setHours(0, 0, 0, 0);
     axios
       .post("/hallbooking", {
         hall: hallname,
-        date: datevalue,
+        date: datevalue.toLocaleDateString(),
         startTime: timevalue[0],
         endTime: timevalue[1],
       })
       .then(function (response) {
-        console.log(response);
+        // onAvail(false)
+        setBooked(true)
+        console.log("data inserted");
       })
       .catch(function (error) {
         console.log(error);
@@ -52,7 +55,8 @@ export default function BookingBody(props) {
     datevalue.setHours(0, 0, 0, 0);
 
     data.forEach((i) => {
-      if (i.date.getTime() === datevalue.getTime()) {
+
+      if (i.date === datevalue.toLocaleDateString()) {
         // todo : timelogic
 
         if (
@@ -66,6 +70,7 @@ export default function BookingBody(props) {
     });
 
     console.log(avail);
+    setBooked(false);
     setFirst(true);
   }
 
@@ -78,10 +83,16 @@ export default function BookingBody(props) {
         <HStack pt="10" spacing={20}>
           {/* <form action="post" method="/sendData"> */}
           <HStack>
-            <DatePicker name="date" onChange={onDateChange} value={datevalue} />
+            <DatePicker name="date" minDate={new Date()} onChange={(e) => { setFirst(false); onDateChange(e) }} value={datevalue} />
             <TimeRangePicker
               name="time"
-              onChange={onTimeChange}
+              minTime="8:00"
+              maxTime="21:00"
+              hourPlaceholder="hh"
+              minutePlaceholder="mm"
+              rangeDivider="to"
+              format="h:mm a"
+              onChange={(e) => { setFirst(false); onTimeChange(e) }}
               value={timevalue}
             />
           </HStack>
@@ -93,13 +104,20 @@ export default function BookingBody(props) {
           {/* </form> */}
         </HStack>
 
-        {avail && first && <Text>It is available</Text>}
+        {/* {avail && first && <Text>It is available</Text>}
         {!avail && <Text>It is not available</Text>}
         {avail && first && (
           <Button onClick={sendNewBooking} colorScheme="linkedin" mt="20">
             Book Hall{" "}
           </Button>
-        )}
+        )} */}
+        {first && (avail ?
+          (booked ? (<Box><Text>{hallname} has been booked! </Text>
+            <Text>Date: {datevalue.toLocaleDateString()}</Text>
+            <Text>Time: {timevalue[0]}-{timevalue[1]}</Text></Box>) : (<Box><Text>It is available</Text>
+              <Button onClick={sendNewBooking} colorScheme="linkedin" mt="20">
+                Book Hall{" "}
+              </Button></Box>) ): <Text>It is not available</Text>)}
       </Box>
     </Box>
   );

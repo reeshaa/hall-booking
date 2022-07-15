@@ -13,20 +13,21 @@ module.exports = function (collection) {
     console.log("hello /link");
   });
   app.get("/hallbooking", (req, res) => {
-    console.log("im in get");
+    require("./getData")(req,res,collection)
+    // console.log("im in get");
 
-    collection.find({ hall: req.query.hall }).toArray((err, res) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log(res);
-        return res;
-      }
-    });
+    // collection.find({ hall: req.query.hall }).toArray((err, res) => {
+    //   if (err) {
+    //     console.log(err);
+    //   } else {
+    //     console.log(`fetched data for ${req.query.hall} of length ${res.length}`);
+    //     return res;
+    //   }
+    // });
   });
-  app.post("/hallbooking", (req, res) => {
-    collection.insert(req.body);
-    console.log("real data inserted");
+  app.post("/hallbooking", async (req, res) => {
+    await collection.insertOne(req.body);
+    res.status(200).send("real data inserted");
   });
 
   app.listen(PORT, () => {
