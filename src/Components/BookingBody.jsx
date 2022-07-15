@@ -15,10 +15,12 @@ import { data } from "../dummydates";
 export default function BookingBody() {
   const [datevalue, onDateChange] = useState(new Date());
   const [timevalue, onTimeChange] = useState(["10:00", "11:00"]);
+  const [avail, onAvail] = useState(true);
 
   function checkAvail() {
+    onAvail(true);
     datevalue.setHours(0, 0, 0, 0);
-    var avail = true;
+
     console.log(timevalue[0] + " my start");
     console.log(timevalue[1] + " my end");
 
@@ -29,12 +31,14 @@ export default function BookingBody() {
         console.log(i.startTime + " istart");
         console.log(i.endTime + " iend");
 
-        if (timevalue[0] >= i.startTime && timevalue[0] < i.endTime) {
+        if (
+          (timevalue[0] < i.startTime && timevalue[1] <= i.startTime) ||
+          (timevalue[0] >= i.endTime && timevalue[1] > i.endTime)
+        ) {
+          console.log("avail");
+        } else {
           console.log("not avail");
-          avail = false;
-        } else if (timevalue[1] > i.startTime && timevalue[1] <= i.endTime) {
-          console.log("not avail");
-          avail = false;
+          onAvail(false);
         }
       }
     });
