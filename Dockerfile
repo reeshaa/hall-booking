@@ -9,7 +9,7 @@ COPY . .
 
 RUN cd frontend/
 
-RUN cd npm install --silent
+RUN npm install --silent
 
 RUN npm run build
 
@@ -17,6 +17,8 @@ RUN cd ..
 
 RUN npm install --silent
 
+RUN ls
+
 EXPOSE 3000
 
-CMD ["node","index.js"]
+CMD ["node","index"]
