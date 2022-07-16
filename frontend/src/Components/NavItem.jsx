@@ -1,9 +1,11 @@
-import { Link, Flex, Icon, Box } from "@chakra-ui/react";
+import { Flex, Icon, Box, Button } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 export default function NavItem(props) {
+  console.log(props.link);
   return (
     <Link
-      href={props.link}
+      to={props.link}
       style={{ textDecoration: "none" }}
       _focus={{ boxShadow: "none" }}
     >
@@ -14,6 +16,7 @@ export default function NavItem(props) {
         borderRadius="lg"
         role="group"
         cursor="pointer"
+        colorScheme="linkedin"
         _hover={{
           bg: "teal.300",
           color: "white",

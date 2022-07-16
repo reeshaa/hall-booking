@@ -1,4 +1,15 @@
-import { Box, Button, HStack, Link, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Link,
+  Text,
+  Image,
+  useColorModeValue,
+  Stack,
+  Heading,
+  Divider,
+} from "@chakra-ui/react";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 import axios from "axios";
 import React, { useState } from "react";
@@ -15,26 +26,26 @@ export default function BookingBody(props) {
   const [data, setData] = useState([]);
 
   const location = useLocation();
-  const hallname = location.state;
-  // console.log(hallname);
+  const deets = location.state;
+  const hallname = location.state.hall;
 
   useEffect(() => {
     axios
-      .get("/hallbooking", {
+      .get("/getData", {
         params: {
           hall: hallname,
         },
       })
       .then(function (res) {
         setData(res.data);
-        // console.log("data : "+res.data);
+        // console.log("data : " + res.data);
       });
   }, [booked]);
 
   function sendNewBooking() {
     datevalue.setHours(0, 0, 0, 0);
     axios
-      .post("/hallbooking", {
+      .post("/postData", {
         hall: hallname,
         date: datevalue.toLocaleDateString(),
         startTime: timevalue[0],
@@ -42,7 +53,7 @@ export default function BookingBody(props) {
       })
       .then(function (response) {
         // onAvail(false)
-        setBooked(true)
+        setBooked(true);
         console.log("data inserted");
       })
       .catch(function (error) {
@@ -55,7 +66,6 @@ export default function BookingBody(props) {
     datevalue.setHours(0, 0, 0, 0);
 
     data.forEach((i) => {
-
       if (i.date === datevalue.toLocaleDateString()) {
         // todo : timelogic
 
@@ -75,49 +85,132 @@ export default function BookingBody(props) {
   }
 
   return (
-    <Box pl="10" pr="10" spacing="15">
-      <Box>
-        <Text pt="4" fontSize={"2xl"} fontWeight="semibold">
-          Booking details ({hallname})
-        </Text>
-        <HStack pt="10" spacing={20}>
-          {/* <form action="post" method="/sendData"> */}
-          <HStack>
-            <DatePicker name="date" minDate={new Date()} onChange={(e) => { setFirst(false); onDateChange(e) }} value={datevalue} />
-            <TimeRangePicker
-              name="time"
-              minTime="8:00"
-              maxTime="21:00"
-              hourPlaceholder="hh"
-              minutePlaceholder="mm"
-              rangeDivider="to"
-              format="h:mm a"
-              onChange={(e) => { setFirst(false); onTimeChange(e) }}
-              value={timevalue}
-            />
+    <Box
+      ml={{ base: 0, md: 60 }}
+      bg={useColorModeValue("gray.100", "gray.900")}
+      p="4"
+      minH={"85vh"}
+    >
+      <Box ml="8" mr="10" spacing="15">
+        <Box
+          px="7"
+          pt="3"
+          pb="12"
+          borderRadius="xl"
+          bg={useColorModeValue("white", "gray.500")}
+        >
+          <Text pt="4" fontSize={"2xl"} fontWeight="semibold">
+            Booking details ({hallname})
+          </Text>
+          <HStack pt="10" spacing={20}>
+            {/* <form action="post" method="/sendData"> */}
+            <HStack>
+              <DatePicker
+                name="date"
+                minDate={new Date()}
+                onChange={(e) => {
+                  setFirst(false);
+                  onDateChange(e);
+                }}
+                value={datevalue}
+              />
+              <TimeRangePicker
+                name="time"
+                minTime="8:00"
+                maxTime="21:00"
+                hourPlaceholder="hh"
+                minutePlaceholder="mm"
+                rangeDivider="to"
+                format="h:mm a"
+                onChange={(e) => {
+                  setFirst(false);
+                  onTimeChange(e);
+                }}
+                value={timevalue}
+              />
+            </HStack>
+            <Link style={{ textDecoration: "none" }}>
+              <Button colorScheme="linkedin" onClick={checkAvail}>
+                Check Availability
+              </Button>
+            </Link>
+            {/* </form> */}
           </HStack>
-          <Link style={{ textDecoration: "none" }}>
-            <Button colorScheme="linkedin" onClick={checkAvail}>
-              Check Availability
-            </Button>
-          </Link>
-          {/* </form> */}
-        </HStack>
 
-        {/* {avail && first && <Text>It is available</Text>}
-        {!avail && <Text>It is not available</Text>}
-        {avail && first && (
-          <Button onClick={sendNewBooking} colorScheme="linkedin" mt="20">
-            Book Hall{" "}
-          </Button>
-        )} */}
-        {first && (avail ?
-          (booked ? (<Box><Text>{hallname} has been booked! </Text>
-            <Text>Date: {datevalue.toLocaleDateString()}</Text>
-            <Text>Time: {timevalue[0]}-{timevalue[1]}</Text></Box>) : (<Box><Text>It is available</Text>
-              <Button onClick={sendNewBooking} colorScheme="linkedin" mt="20">
-                Book Hall{" "}
-              </Button></Box>) ): <Text>It is not available</Text>)}
+          {first &&
+            (avail ? (
+              booked ? (
+                <Box>
+                  <Text>{hallname} has been booked! </Text>
+                  <Text>Date: {datevalue.toLocaleDateString()}</Text>
+                  <Text>
+                    Time: {timevalue[0]}-{timevalue[1]}
+                  </Text>
+                </Box>
+              ) : (
+                <Box>
+                  <Text>It is available</Text>
+                  <Button
+                    onClick={sendNewBooking}
+                    colorScheme="linkedin"
+                    mt="10"
+                  >
+                    Book Hall{" "}
+                  </Button>
+                </Box>
+              )
+            ) : (
+              <Text>It is not available</Text>
+            ))}
+        </Box>
+        <Box
+          mt="10"
+          px="7"
+          pt="3"
+          pb="12"
+          borderRadius="xl"
+          bg={useColorModeValue("white", "gray.500")}
+        >
+          <Text mt="5" mb="5" p="2" fontWeight={"semibold"} fontSize="2xl">
+            Details
+          </Text>
+          <HStack>
+            <Box mr="10">
+              <Image
+                rounded={"lg"}
+                height={210}
+                width={300}
+                objectFit={"cover"}
+                src={deets.imgsrc}
+              />
+            </Box>
+            <Box>
+              <Stack>
+                <Heading fontSize={"4xl"} fontFamily={"body"} fontWeight={800}>
+                  {deets.hall}
+                </Heading>
+                <Text
+                  pb="2"
+                  color={"gray.500"}
+                  fontSize={"xm"}
+                  textTransform={"uppercase"}
+                >
+                  ({deets.block})
+                </Text>
+                <Text>
+                  {deets.hall} is located in {deets.block}. It has comfortable
+                  seating and a lot of events have been conducted in here! It
+                  holds a capacity of {deets.capacity} people.
+                </Text>
+                <Stack direction={"row"} align={"center"}>
+                  <Text mt="6" fontStyle={"italic"} fontSize={"l"}>
+                    Max Capacity : {deets.capacity}
+                  </Text>
+                </Stack>
+              </Stack>
+            </Box>
+          </HStack>
+        </Box>
       </Box>
     </Box>
   );

@@ -23,13 +23,15 @@ import {
   MenuList,
 } from "@chakra-ui/react";
 import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
-import NavItem from "../Components/NavItem";
-import BookingBody from "../Components/BookingBody";
+import { HiPhone, HiInformationCircle, HiViewGrid } from "react-icons/hi";
 
-export default function HallBooking() {
+import NavItem from "../Components/NavItem";
+
+export default function CommonPage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  console.log(props.heading);
   return (
-    <Box minH="80vh" bg={useColorModeValue("gray.100", "gray.900")}>
+    <Box>
       <SidebarContent display={{ base: "none", md: "block" }} />
       <Drawer
         autoFocus={false}
@@ -37,7 +39,7 @@ export default function HallBooking() {
         placement="left"
         onClose={onClose}
         returnFocusOnClose={false}
-        //   onOverlayClick={onClose}
+        onOverlayClick={onClose}
         size="full"
       >
         <DrawerContent>
@@ -46,9 +48,6 @@ export default function HallBooking() {
       </Drawer>
       {/* mobilenav */}
       <MobileNav onOpen={onOpen}></MobileNav>
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        <BookingBody></BookingBody>
-      </Box>
     </Box>
   );
 }
@@ -74,16 +73,16 @@ function SidebarContent(props) {
         />
       </Flex>
       <Box mt="12">
-        <NavItem text={"Dashboard"} icon={<FiChevronDown />}></NavItem>
+        <NavItem text={"Dashboard"} icon={<HiViewGrid />} link={"/"}></NavItem>
         <NavItem
-          text={"Messages"}
-          icon={<FiChevronDown />}
-          link={"#"}
+          text={"Recent Bookings"}
+          icon={<HiInformationCircle />}
+          link={"/recentBookings"}
         ></NavItem>
         <NavItem
-          text={"Appointments"}
-          icon={<HamburgerIcon />}
-          link={"#"}
+          text={"Contact"}
+          icon={<HiPhone />}
+          link={"/contacts"}
         ></NavItem>
       </Box>
     </Box>
@@ -111,16 +110,9 @@ function MobileNav(props) {
         icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
       <Text ml="3" fontSize="xl" fontWeight="bold">
-        Dashboard
+        {/* {props.heading} */}
+        Hall Booking Portal
       </Text>
 
       <HStack spacing={{ base: "0", md: "6" }}>
@@ -161,7 +153,7 @@ function MobileNav(props) {
               </HStack>
             </MenuButton>
             <MenuList
-              //   onOverlayClick
+              // onOverlayClick
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
