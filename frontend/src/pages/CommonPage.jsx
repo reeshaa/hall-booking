@@ -26,6 +26,7 @@ import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
 import { HiPhone, HiInformationCircle, HiViewGrid } from "react-icons/hi";
 
 import NavItem from "../Components/NavItem";
+import { useLocation } from "react-router-dom";
 
 export default function CommonPage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();

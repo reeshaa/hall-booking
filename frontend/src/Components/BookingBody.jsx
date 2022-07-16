@@ -10,6 +10,15 @@ import {
   Heading,
   Divider,
 } from "@chakra-ui/react";
+import {
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 import axios from "axios";
 import React, { useState } from "react";
@@ -209,7 +218,44 @@ export default function BookingBody(props) {
                 </Stack>
               </Stack>
             </Box>
+            <Box></Box>
           </HStack>
+        </Box>
+        <Box
+          mt="10"
+          px="7"
+          pt="3"
+          pb="12"
+          borderRadius="xl"
+          bg={useColorModeValue("white", "gray.500")}
+        >
+          <Text mt="5" mb="5" p="2" fontWeight={"semibold"} fontSize="2xl">
+            Booking history
+          </Text>
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Hall</Th>
+                  <Th>Date</Th>
+                  <Th>Start time</Th>
+                  <Th>End time</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {data.map((i) => {
+                  return (
+                    <Tr>
+                      <Td>{i.hall}</Td>
+                      <Td>{i.date}</Td>
+                      <Td>{i.startTime}</Td>
+                      <Td>{i.endTime}</Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
         </Box>
       </Box>
     </Box>

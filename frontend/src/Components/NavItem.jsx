@@ -1,8 +1,10 @@
 import { Flex, Icon, Box, Button } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function NavItem(props) {
   console.log(props.link);
+  const location = useLocation();
+
   return (
     <Link
       to={props.link}
@@ -17,10 +19,16 @@ export default function NavItem(props) {
         role="group"
         cursor="pointer"
         colorScheme="linkedin"
-        _hover={{
-          bg: "teal.300",
-          color: "white",
-        }}
+        style={
+          props.link === location.pathname ||
+          (location.pathname == "/hallbooking" && props.link == "/")
+            ? { background: "#BAE9FE", color: "black" }
+            : {}
+        }
+        // _hover={{
+        //   // bg: "teal.300",
+        //   color: "white",
+        // }}
         // {...rest}
       >
         {props.icon}
