@@ -25,7 +25,7 @@ export default function RecentBookings() {
     axios
       .get(process.env.REACT_APP_SERVER_URL + "/getHistory")
       .then(function (res) {
-        console.log("Received result");
+        console.log(res.data);
         setDatas(res.data);
       });
   }, []);
@@ -44,7 +44,7 @@ export default function RecentBookings() {
         borderRadius="xl"
         bg={useColorModeValue("white", "gray.500")}
       >
-        {datas.length == 0 ? (
+        {datas.length === 0 ? (
           <Center>
             <VStack>
               <Spinner

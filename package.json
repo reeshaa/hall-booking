@@ -2,7 +2,7 @@
   "name": "hall-booking",
   "version": "1.0.0",
   "description": "",
-  "main": "./frontend/src/App.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "index.js"
@@ -14,6 +14,7 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "json": "^11.0.0",
-    "mongodb": "^4.8.0"
+    "mongodb": "^4.8.0",
+    "path": "^0.12.7"
   }
 }
