@@ -1,5 +1,5 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
-// import HallCard from "./HallCard";
+
 import {
   Table,
   TableContainer,

@@ -1,28 +1,24 @@
 import {
   Box,
   Button,
-  HStack,
-  Link,
-  Text,
-  Image,
-  useColorModeValue,
-  Stack,
   Heading,
-  Divider,
-} from "@chakra-ui/react";
-import {
+  HStack,
+  Image,
+  Link,
+  Stack,
   Table,
   TableContainer,
   Tbody,
   Td,
+  Text,
   Th,
   Thead,
   Tr,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import TimeRangePicker from "@wojtekmaj/react-timerange-picker";
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
 import { useLocation } from "react-router-dom";
 

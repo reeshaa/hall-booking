@@ -1,5 +1,4 @@
-import { Box, Text, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
-// import HallCard from "./HallCard";
+import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 
 export default function Contacts() {
   return (

@@ -1,32 +1,26 @@
-import React, { ReactNode } from "react";
-import { HamburgerIcon } from "@chakra-ui/icons";
-// import NavItem from "../components/NavItem";
+import React from "react";
 import {
-  Center,
-  Image,
-  IconButton,
   Avatar,
   Box,
+  Center,
   CloseButton,
-  Flex,
-  HStack,
-  VStack,
-  useColorModeValue,
   Drawer,
   DrawerContent,
-  Text,
-  useDisclosure,
+  Flex,
+  HStack,
+  IconButton,
+  Image,
   Menu,
   MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
+  Text,
+  useColorModeValue,
+  useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
-import { FiMenu, FiBell, FiChevronDown } from "react-icons/fi";
-import { HiPhone, HiInformationCircle, HiViewGrid } from "react-icons/hi";
+import { FiBell, FiMenu } from "react-icons/fi";
+import { HiInformationCircle, HiPhone, HiViewGrid } from "react-icons/hi";
 
 import NavItem from "../Components/NavItem";
-import { useLocation } from "react-router-dom";
 
 export default function CommonPage(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -1,4 +1,4 @@
-import { Box, Text, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import { Box, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
 import HallCard from "./HallCard";
 
 export default function DashboardBody() {

@@ -1,14 +1,12 @@
 import {
   Box,
-  Center,
-  useColorModeValue,
-  Heading,
-  Text,
-  Stack,
-  Image,
-  LinkBox,
-  LinkOverlay,
   Button,
+  Center,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 const IMAGE =

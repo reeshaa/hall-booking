@@ -1,4 +1,4 @@
-import { Flex, Icon, Box, Button } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function NavItem(props) {
@@ -25,11 +25,6 @@ export default function NavItem(props) {
             ? { background: "#BAE9FE", color: "black" }
             : {}
         }
-        // _hover={{
-        //   // bg: "teal.300",
-        //   color: "white",
-        // }}
-        // {...rest}
       >
         {props.icon}
 

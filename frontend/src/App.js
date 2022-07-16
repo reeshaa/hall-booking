@@ -1,18 +1,13 @@
-import "./App.css";
-import React, { useEffect, useState } from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "./App.css";
 
-import DashboardBody from "./Components/DashboardBody";
-import CommonPage from "./pages/CommonPage";
 import BookingBody from "./Components/BookingBody";
-import RecentBookings from "./Components/RecentBookings";
 import Contacts from "./Components/Contacts";
+import DashboardBody from "./Components/DashboardBody";
+import RecentBookings from "./Components/RecentBookings";
+import CommonPage from "./pages/CommonPage";
 
 function App() {
   return (
