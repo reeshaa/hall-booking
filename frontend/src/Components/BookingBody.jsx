@@ -22,7 +22,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
 import { useLocation } from "react-router-dom";
 
-export default function BookingBody(props) {
+export default function BookingBody() {
   const [datevalue, onDateChange] = useState(new Date());
   const [timevalue, onTimeChange] = useState(["10:00", "11:00"]);
   const [avail, onAvail] = useState(true);
@@ -43,7 +43,6 @@ export default function BookingBody(props) {
       })
       .then(function (res) {
         setData(res.data);
-        // console.log("data : " + res.data);
       });
   }, [booked]);
 
@@ -59,7 +58,7 @@ export default function BookingBody(props) {
       .then(function (response) {
         // onAvail(false)
         setBooked(true);
-        console.log("data inserted");
+        console.log("new data inserted");
       })
       .catch(function (error) {
         console.log(error);
@@ -72,8 +71,6 @@ export default function BookingBody(props) {
 
     data.forEach((i) => {
       if (i.date === datevalue.toLocaleDateString()) {
-        // todo : timelogic
-
         if (
           (timevalue[0] < i.startTime && timevalue[1] <= i.startTime) ||
           (timevalue[0] >= i.endTime && timevalue[1] > i.endTime)
@@ -84,7 +81,6 @@ export default function BookingBody(props) {
       }
     });
 
-    console.log(avail);
     setBooked(false);
     setFirst(true);
   }

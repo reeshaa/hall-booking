@@ -1,4 +1,5 @@
 var mongo = require("mongodb").MongoClient;
+require("dotenv").config();
 
 mongo.connect(process.env.MONGO_URL, (err, client) => {
   if (err) {
