@@ -2,6 +2,7 @@
   "name": "hall-booking",
   "version": "0.1.0",
   "private": true,
+  "main":"src/index.js",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.4",
     "@chakra-ui/react": "^2.2.4",
