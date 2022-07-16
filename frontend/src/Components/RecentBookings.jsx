@@ -1,26 +1,26 @@
-import { Box, Text, Grid, GridItem, useColorModeValue } from "@chakra-ui/react";
+import { Box, useColorModeValue } from "@chakra-ui/react";
 // import HallCard from "./HallCard";
 import {
   Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
   TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function RecentBookings() {
   const [datas, setDatas] = useState([]);
   useEffect(() => {
-    axios.get("/getHistory").then(function (res) {
-      setDatas(res.data);
-    });
+    axios
+      .get(process.env.REACT_APP_SERVER_URL + "/getHistory")
+      .then(function (res) {
+        console.log("Received result");
+        setDatas(res.data);
+      });
   }, []);
 
   return (

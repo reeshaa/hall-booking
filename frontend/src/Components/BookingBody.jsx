@@ -31,7 +31,7 @@ export default function BookingBody(props) {
 
   useEffect(() => {
     axios
-      .get("/getData", {
+      .get(process.env.REACT_APP_SERVER_URL + "/getData", {
         params: {
           hall: hallname,
         },
@@ -45,7 +45,7 @@ export default function BookingBody(props) {
   function sendNewBooking() {
     datevalue.setHours(0, 0, 0, 0);
     axios
-      .post("/postData", {
+      .post(process.env.REACT_APP_SERVER_URL + "/postData", {
         hall: hallname,
         date: datevalue.toLocaleDateString(),
         startTime: timevalue[0],

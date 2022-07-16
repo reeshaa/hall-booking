@@ -16,7 +16,22 @@ export default function Contacts() {
         borderRadius="xl"
         bg={useColorModeValue("white", "gray.500")}
       >
-        <Text>Hello contacts</Text>
+        <Text
+          fontSize="l"
+          as="u"
+          fontWeight="semibold"
+          fontStyle="underline"
+          mb="10"
+        >
+          For any queries
+        </Text>
+        <Text mt="5">
+          Contact Mr. Nagabhushan Gowda
+          <br />
+          Phone no : +91 98765 54321
+          <br />
+          Email : maintenanceoffice@rit.edu
+        </Text>
       </Box>
     </Box>
   );
