@@ -1,4 +1,10 @@
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Spinner,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
 
 import {
   Table,
@@ -7,6 +13,7 @@ import {
   Td,
   Th,
   Thead,
+  Text,
   Tr,
 } from "@chakra-ui/react";
 import axios from "axios";
@@ -37,30 +44,48 @@ export default function RecentBookings() {
         borderRadius="xl"
         bg={useColorModeValue("white", "gray.500")}
       >
-        <TableContainer>
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th>Hall</Th>
-                <Th>Date</Th>
-                <Th>Start time</Th>
-                <Th>End time</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {datas.map((data) => {
-                return (
-                  <Tr>
-                    <Td>{data.hall}</Td>
-                    <Td>{data.date}</Td>
-                    <Td>{data.startTime}</Td>
-                    <Td>{data.endTime}</Td>
-                  </Tr>
-                );
-              })}
-            </Tbody>
-          </Table>
-        </TableContainer>
+        {datas.length == 0 ? (
+          <Center>
+            <VStack>
+              <Spinner
+                thickness="3px"
+                speed="0.65s"
+                size="lg"
+                emptyColor="gray.200"
+                color="blue.500"
+              >
+                {" "}
+              </Spinner>
+
+              <Text>Data is loading. Please wait...</Text>
+            </VStack>
+          </Center>
+        ) : (
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th>Hall</Th>
+                  <Th>Date</Th>
+                  <Th>Start time</Th>
+                  <Th>End time</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {datas.map((data) => {
+                  return (
+                    <Tr>
+                      <Td>{data.hall}</Td>
+                      <Td>{data.date}</Td>
+                      <Td>{data.startTime}</Td>
+                      <Td>{data.endTime}</Td>
+                    </Tr>
+                  );
+                })}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        )}
       </Box>
     </Box>
   );
