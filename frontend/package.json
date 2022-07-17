@@ -15,6 +15,7 @@
     "dotenv": "^16.0.1",
     "env-cmd": "^10.1.0",
     "framer-motion": "^6.5.1",
+    "hall-booking": "file:..",
     "react": "^18.2.0",
     "react-date-picker": "^8.4.0",
     "react-datetime-picker": "^3.5.0",

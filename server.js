@@ -4,15 +4,16 @@ var cors = require("cors");
 var bodyParser = require("body-parser");
 
 const PORT = process.env.PORT;
+const path = require("path");
 
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: "false" }));
 
 module.exports = function (collection) {
-  app.get("/", (req, res) => {
-    console.log("hello /link");
-  });
+  // app.get("/", (req, res) => {
+  //   console.log("hello /link");
+  // });
   app.get("/getData", (req, res) => {
     require("./getData")(req, res, collection);
   });
@@ -24,6 +25,19 @@ module.exports = function (collection) {
   app.get("/getHistory", (req, res) => {
     require("./getHistory")(req, res, collection);
   });
+
+  if (process.env.NODE_ENV === "production") {
+    app.use(express.static("./frontend/build/"));
+    app.get("*", (req, res) => {
+      console.log(__dirname);
+      res.sendFile(path.resolve("./frontend/build", "index.html"));
+    });
+  } else {
+    app.get("/", (req, res) => {
+      res.send("RIT Hall Booking Server running");
+    });
+  }
+
   app.listen(PORT, () => {
     console.log("Server is listening to port " + PORT);
   });
