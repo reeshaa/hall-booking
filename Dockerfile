@@ -20,17 +20,13 @@ FROM node:16-alpine
 # Set working directory to /app/
 WORKDIR /app
 
-# Copy ./package.json (backend) to /app/
-COPY package*.json ./
+# copy project files to /app/
+COPY . .
 
-# Copy ./package.json (frontend) to /app/
-COPY frontend/package*.json ./
 
 #  Installing frontend dependencies
 RUN npm install --silent --prefix frontend/
 
-# copy project files to /app/
-COPY . .
 
 # Produce a production build of the frontend (./) , stored in /build/
 RUN npm run build --prefix frontend
